@@ -1,0 +1,8 @@
+{
+  "name": "wire_lamps",
+  "version": "0.1.0",
+  "title": "Wire Lamps",
+  "author": "OpenAI",
+  "factorio_version": "2.0",
+  "description": "Adds a toggleable shortcut to place decorative lamps on copper wire connections between electric poles."
+}
