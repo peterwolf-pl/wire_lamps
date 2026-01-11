@@ -148,6 +148,7 @@ script.on_event(defines.events.on_lua_shortcut, function(event)
 end)
 
 local function handle_pole_change()
+  ensure_tables()
   if not global.enabled then
     return
   end
