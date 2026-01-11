@@ -65,17 +65,17 @@ local function create_lamp_for_connection(pole, neighbor)
   local positions = {}
   if pole.name == "small-electric-pole" and neighbor.name == "small-electric-pole" then
     table.insert(positions, {
-      pole.position.x + (neighbor.position.x - pole.position.x) / 3,
-      pole.position.y + (neighbor.position.y - pole.position.y) / 3,
+      x = pole.position.x + (neighbor.position.x - pole.position.x) / 3,
+      y = pole.position.y + (neighbor.position.y - pole.position.y) / 3,
     })
     table.insert(positions, {
-      pole.position.x + (neighbor.position.x - pole.position.x) * 2 / 3,
-      pole.position.y + (neighbor.position.y - pole.position.y) * 2 / 3,
+      x = pole.position.x + (neighbor.position.x - pole.position.x) * 2 / 3,
+      y = pole.position.y + (neighbor.position.y - pole.position.y) * 2 / 3,
     })
   else
     table.insert(positions, {
-      (pole.position.x + neighbor.position.x) / 2,
-      (pole.position.y + neighbor.position.y) / 2,
+      x = (pole.position.x + neighbor.position.x) / 2,
+      y = (pole.position.y + neighbor.position.y) / 2,
     })
   end
 
