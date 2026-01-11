@@ -109,7 +109,10 @@ local function handle_pole_change()
   rebuild_lamps()
 end
 
-script.on_event(defines.events.on_wire_connection_changed, handle_pole_change)
+local wire_connection_event = defines.events.on_wire_connection_changed
+if wire_connection_event then
+  script.on_event(wire_connection_event, handle_pole_change)
+end
 
 script.on_event(
   {
