@@ -35,6 +35,8 @@ local shortcut = {
   toggleable = true,
   icon = "__base__/graphics/icons/small-lamp.png",
   icon_size = 64,
+  small_icon = "__base__/graphics/icons/small-lamp.png",
+  small_icon_size = 64,
   order = "w[wire-lamps]",
 }
 
