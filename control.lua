@@ -6,7 +6,7 @@ local function lamp_key(a, b)
 end
 
 local function destroy_all_lamps()
-  if not global.lamps then
+  if not global or not global.lamps then
     return
   end
   for _, entry in pairs(global.lamps) do
@@ -18,6 +18,9 @@ local function destroy_all_lamps()
 end
 
 local function ensure_tables()
+  if not global then
+    global = {}
+  end
   global.lamps = global.lamps or {}
   global.enabled = global.enabled or false
 end
