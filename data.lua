@@ -10,7 +10,7 @@ lamp.selection_box = {{0, 0}, {0, 0}}
 lamp.collision_box = {{0, 0}, {0, 0}}
 lamp.collision_mask = {layers = {}}
 lamp.selectable_in_game = false
-lamp.energy_usage_per_tick = "1KW"
+lamp.energy_usage_per_tick = "1kW"
 lamp.light = {intensity = 0.6, size = 12, color = {r = 1, g = 0.95, b = 0.85}}
 local function scale_sprite(sprite, scale)
   if not sprite then
