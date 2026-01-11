@@ -10,8 +10,14 @@ local function destroy_all_lamps()
     return
   end
   for _, entry in pairs(global.lamps) do
-    if entry.entity and entry.entity.valid then
-      entry.entity.destroy()
+    local entities = entry.entities or {}
+    if entry.entity then
+      table.insert(entities, entry.entity)
+    end
+    for _, entity in pairs(entities) do
+      if entity and entity.valid then
+        entity.destroy()
+      end
     end
   end
   global.lamps = {}
@@ -37,23 +43,56 @@ local function create_lamp_for_connection(pole, neighbor)
   end
 
   local key = lamp_key(pole.unit_number, neighbor.unit_number)
-  if global.lamps[key] and global.lamps[key].entity and global.lamps[key].entity.valid then
-    return
+  local existing = global.lamps[key]
+  if existing and existing.entities then
+    local all_valid = true
+    for _, entity in pairs(existing.entities) do
+      if not (entity and entity.valid) then
+        all_valid = false
+        break
+      end
+    end
+    if all_valid then
+      return
+    end
+    for _, entity in pairs(existing.entities) do
+      if entity and entity.valid then
+        entity.destroy()
+      end
+    end
   end
 
-  local midpoint = {
-    (pole.position.x + neighbor.position.x) / 2,
-    (pole.position.y + neighbor.position.y) / 2,
-  }
+  local positions = {}
+  if pole.name == "small-electric-pole" and neighbor.name == "small-electric-pole" then
+    table.insert(positions, {
+      pole.position.x + (neighbor.position.x - pole.position.x) / 3,
+      pole.position.y + (neighbor.position.y - pole.position.y) / 3,
+    })
+    table.insert(positions, {
+      pole.position.x + (neighbor.position.x - pole.position.x) * 2 / 3,
+      pole.position.y + (neighbor.position.y - pole.position.y) * 2 / 3,
+    })
+  else
+    table.insert(positions, {
+      (pole.position.x + neighbor.position.x) / 2,
+      (pole.position.y + neighbor.position.y) / 2,
+    })
+  end
 
-  local lamp = pole.surface.create_entity({
-    name = "wire-lamp",
-    position = midpoint,
-    force = pole.force,
-  })
+  local entities = {}
+  for _, position in pairs(positions) do
+    local lamp = pole.surface.create_entity({
+      name = "wire-lamp",
+      position = position,
+      force = pole.force,
+    })
+    if lamp then
+      table.insert(entities, lamp)
+    end
+  end
 
-  if lamp then
-    global.lamps[key] = {entity = lamp, surface_index = pole.surface.index}
+  if #entities > 0 then
+    global.lamps[key] = {entities = entities, surface_index = pole.surface.index}
   end
 end
 
