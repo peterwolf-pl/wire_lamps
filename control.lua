@@ -61,8 +61,11 @@ local function rebuild_lamps()
   destroy_all_lamps()
   for _, surface in pairs(game.surfaces) do
     for _, pole in pairs(surface.find_entities_filtered({type = "electric-pole"})) do
-      if pole.neighbours and pole.neighbours.copper then
-        for _, neighbor in pairs(pole.neighbours.copper) do
+      local ok, neighbours = pcall(function()
+        return pole.neighbours
+      end)
+      if ok and neighbours and neighbours.copper then
+        for _, neighbor in pairs(neighbours.copper) do
           create_lamp_for_connection(pole, neighbor)
         end
       end
