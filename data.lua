@@ -5,7 +5,7 @@ lamp.icon = "__base__/graphics/icons/small-lamp.png"
 lamp.icon_size = 64
 lamp.minable = nil
 lamp.placeable_by = nil
-lamp.flags = {"placeable-off-grid", "not-on-map", "hidden"}
+lamp.flags = {"placeable-off-grid", "not-on-map"}
 lamp.selection_box = {{0, 0}, {0, 0}}
 lamp.collision_box = {{0, 0}, {0, 0}}
 lamp.collision_mask = {layers = {}}
